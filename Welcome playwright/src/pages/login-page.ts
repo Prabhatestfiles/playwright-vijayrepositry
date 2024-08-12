@@ -1,113 +1,106 @@
 
-import { BrowserContext, Locator, Page, expect } from "playwright/test";
+import { BrowserContext, Locator, Page, expect } from "@playwright/test";
 
 export class Login {
-    page: Page;
-    userid: Locator;
-    password: Locator;
-    signin: Locator;
-    url: string;
-    textcontent: Locator
-    workassg: Locator
-    tobemty:Locator
-    ediatble:Locator
-    disable:Locator
-    packagedes: Locator
-    autofill: Locator
-    filldata: Locator
-    date: Locator
-    picdate: Locator
-    projectlocation: Locator
-    selectlocation: Locator
-    psdate: Locator
-    picpsdate: Locator
-    selectpsdate:Locator
-    textinck: Locator
-    create: Locator
-    ignor: Locator
-    close:Locator
-
-
+    page: Page
+    url: string
+    username: Locator
+    password: Locator
+    card: Locator
+    addbutton: Locator
+    licensetype:Locator
+    itemcategory: Locator
+    itemdescription:Locator
+    quantity:Locator
+    itemUOM:Locator
+    PID:Locator
+    checkbox:Locator
+    radiobutton:Locator
+    radiobutton2:Locator
+    datepicker:Locator
+    currentDay:Locator
+    attachment:Locator
+    attach:Locator
+    file:Locator
+    filetype:Locator
+    uploadbutton:Locator
+ 
     constructor(page: Page) {
         this.page = page;
-        this.url = 'https://adaptiveqat.caresoftglobal.com/';
-
-
-        this.userid = this.page.locator('[id="frmLogin"] [id="txtUserID"][name="username"]').nth(0);
-        this.password = this.page.locator('[id="txtPassword"][name="password"]').nth(0)
-        this.signin = this.page.locator('#btnSubmit').nth(0);
-        this.textcontent=this.page.getByRole('heading', { name: 'Adaptive Service Management' })
-        this.workassg = this.page.locator('[id="Add"]').getByText('Add Work Package');
-        //this.tobemty =this.page.locator('[name="Package Description"][class="form-control txtarea ctl  "]')
-        //this.ediatble =this.page.locator('[name="Package Description"][class="form-control txtarea ctl  "]')
-        this.packagedes = this.page.locator('[name="Package Description"][class="form-control txtarea ctl  "]');
-        this.autofill = this.page.locator('[id="9A19F52D-2A38-4987-9D18-28CE16A45A1E"]');
-        //this.filldata = this.page.locator('[text="HUNTER JAMES - WN525"]');
-        this.date = this.page.locator('input[name="Requested Delivery Date"]');
-        this.picdate = this.page.locator('td[data-handler="selectDay"] a[data-date="8"]');
-        this.projectlocation = this.page.locator('[role="textbox"]').nth(16);
-        this.selectlocation = this.page.locator('[role="option"]').nth(1);
-        this.psdate = this.page.locator('input[name="Planned Start Date"]');
-        this.selectpsdate = this.page.locator('')
-
-        this.disable = this.page.locator('[class="col-md-6 form-control  ctl"]').nth(1)
-        this.picpsdate = this.page.locator('[id="expand-addon"]');
-        this.textinck = this.page.locator('[class="btn-close feedbackformclose"]').nth(-1);
-        this.create = this.page.locator('[id="Create"]').nth(0);
-        this.ignor =this.page.locator('[class="swal-button swal-button--confirm"]');
-        this.close =this.page.locator('[class="btn-close"]').nth(0);
-        
-
-
-
+        this.url = 'https://procurementqat.caresoftglobal.com/';
+        this.username = this.page.locator('[name="username"]')
+        this.password = this.page.locator('[id="txtPassword"]')
+        this.card = this.page.getByRole('heading', { name: 'Software' })
+        this.addbutton = this.page.locator('#btnadd')
+        this.licensetype=this.page.getByPlaceholder('Please enter License type')
+        this.itemcategory=this.page.locator('[id="ddlItemCategory"]')
+        this.itemdescription=this.page.locator('#ddlItemdescriptions')
+        this.quantity=this.page.locator('#txtQty')
+        this.itemUOM=this.page.locator('[id="ddlQtyUOM"]')
+        this.PID=this.page.locator('[class="multiselect-selected-text"]')
+        this.checkbox=this.page.locator('[type="checkbox"][value="BAYONE13179C000"]')
+        this.radiobutton=this.page.locator('[id="RdnBillabeyes"]')
+        this.radiobutton2=this.page.locator('[id="RdnWorkPlaceCustomer"]')
+        this.datepicker=this.page.locator('[id="txtExpiryDate"]')
+        this.currentDay=this.page.locator('[class="today active start-date active end-date in-range available"]')
+        this.attachment=this.page.locator('[id="btnAttachment"]')
+        this.attach=this.page.locator('[id="fileUpload"]')
+        this.filetype=this.page.locator('#ddlDocType')
+        this.uploadbutton=this.page.locator('#btnUpload')
     }
-    public async loginmethod() {
-        await this.page.goto(this.url)
-        //await expect(this.page).toHaveURL('https://adaptiveqat.caresoftglobal.c')
-        await expect.soft(this.page).toHaveURL('https://adaptiveqat.caresoftglobal.c')
-
-        //this.textcontent=this.page.getByRole('heading', { name: 'Adaptive Service Management' })
-        console.log('The text is present')
-
-        //await this.page.waitForTimeout(1000);
-        await this.page.waitForLoadState('networkidle')
-        await this.userid.waitFor({ state: 'visible' })
-        await this.userid.fill('103095')
-        await this.password.fill('Infinity*!99')
-        await this.signin.click()
-        await this.page.waitForTimeout(2000);
-        await this.workassg.click()
-        await expect(this.packagedes).toBeEditable()
-        console.log('Text field is able to editable')
-        await expect(this.packagedes).toBeEmpty()
-        console.log('The field is empty')
-        await this.packagedes.fill('Test package')
-        await this.date.click()
-        await this.picdate.click()
-        await this.projectlocation.click()
-        await this.selectlocation.click()
-        await this.psdate.click()
-        await this.selectpsdate.click()
-        await expect(this.disable).toBeDisabled()
-        console.log('Email id field is disable')
-        await this.picpsdate.click()
-        await this.textinck.click()
-        await this.create.click()
-        await this.ignor.click()
-        await this.close.click()
-
-
-
-        //await this.textinck('body.cke_editable','Your text here');
-       //await this.page.pause()
-
-
-        //await expect(this.textcontent).toContainText('Adaptive Service Management')
-        //console.log('Given text is avilable so the test case pass')
-
-
-
+ 
+    public async loginmethod()
+    {
+        await this.page.waitForTimeout(5000)           
+        await this.page.goto(this.url);
+        await expect(this.page).toHaveURL(this.url)     
+        console.log('Url Matched')
+        await this.page.waitForSelector('this.username')    
+        await expect(this.username).toBeEnabled()       
+        await this.username.fill('101479')              
+        await expect(this.password).not.toBeDisabled()  
+        await this.password.fill('Caresoft')           
+        await this.password.press('Enter')              
+        await this.page.waitForLoadState('networkidle') 
     }
-
+ 
+    public async selectCard() {
+        await this.card.click()                         
+    }
+ 
+    public async addRequest() {
+        await this.addbutton.click()                              
+        await this.licensetype.fill('Public')                    
+        await this.itemcategory.selectOption('Subscription')    
+        await this.itemdescription.selectOption('ANSA')           
+        await this.quantity.fill('10')
+              
+        await this.itemUOM.selectOption('Units')
+        await this.PID.click()                                      
+        await expect(this.checkbox).not.toBeChecked()             
+        await this.checkbox.check()                                
+         if(await this.radiobutton.isChecked)                         
+         {
+             if(await expect(this.radiobutton2).not.toBeChecked)
+                 {
+                     await this.radiobutton2.check()
+                     console.log('checked')
+                 }
+         }
+        await this.datepicker.focus()                                   
+        await this.currentDay.dblclick()                               
+       
+         await this.attachment.click()
+         await this.filetype.selectOption('Invoice')
+         const fileInput = this.attach
+         await this.attach.click()
+         await fileInput.setInputFiles('')
+         await this.uploadbutton.click()
+         await this.page.pause()
+ 
+       
+       
+        }
+   
 }
 

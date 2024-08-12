@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { on } from 'events';
 import { defineBddConfig } from 'playwright-bdd';
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
